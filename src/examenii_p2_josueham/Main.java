@@ -4,11 +4,20 @@
  */
 package examenii_p2_josueham;
 
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreeNode;
+
 /**
  *
  * @author skxka
  */
 public class Main extends javax.swing.JFrame {
+
+    private DefaultTreeModel modelo;
 
     /**
      * Creates new form Main
@@ -16,6 +25,7 @@ public class Main extends javax.swing.JFrame {
     public Main() {
         initComponents();
         this.setLocationRelativeTo(null);
+        modelo = (DefaultTreeModel) JTtorneos.getModel();
     }
 
     /**
@@ -27,8 +37,22 @@ public class Main extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        PopUpDeportes = new javax.swing.JPopupMenu();
+        OpListarEquipos = new javax.swing.JMenuItem();
+        jSeparator1 = new javax.swing.JPopupMenu.Separator();
+        OpMostrarTabla = new javax.swing.JMenuItem();
         jScrollPane1 = new javax.swing.JScrollPane();
         JTtorneos = new javax.swing.JTree();
+        BtnCrearDeporte = new javax.swing.JButton();
+        FieldNombreDeporte = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+
+        OpListarEquipos.setText("Listar Equipos Participantes");
+        PopUpDeportes.add(OpListarEquipos);
+        PopUpDeportes.add(jSeparator1);
+
+        OpMostrarTabla.setText("Mostrar Tabla de Posiciones");
+        PopUpDeportes.add(OpMostrarTabla);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -37,12 +61,31 @@ public class Main extends javax.swing.JFrame {
         treeNode1.add(treeNode2);
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Q2");
         treeNode1.add(treeNode2);
-        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Q3");
-        treeNode1.add(treeNode2);
         treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Q4");
         treeNode1.add(treeNode2);
+        treeNode2 = new javax.swing.tree.DefaultMutableTreeNode("Q5");
+        treeNode1.add(treeNode2);
         JTtorneos.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
+        JTtorneos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                JTtorneosMouseClicked(evt);
+            }
+        });
+        JTtorneos.addTreeSelectionListener(new javax.swing.event.TreeSelectionListener() {
+            public void valueChanged(javax.swing.event.TreeSelectionEvent evt) {
+                JTtorneosValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(JTtorneos);
+
+        BtnCrearDeporte.setText("Crear Deporte");
+        BtnCrearDeporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCrearDeporteActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setText("Nombre del deporte");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -50,19 +93,64 @@ public class Main extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(40, 40, 40)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(363, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabel1)
+                    .addComponent(jScrollPane1)
+                    .addComponent(FieldNombreDeporte)
+                    .addComponent(BtnCrearDeporte, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
+                .addContainerGap(310, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(FieldNombreDeporte, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BtnCrearDeporte)
+                .addContainerGap(25, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void BtnCrearDeporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCrearDeporteActionPerformed
+        String nomDeporte = FieldNombreDeporte.getText();
+        Deporte deporte = new Deporte(nomDeporte);
+
+        DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modelo.getRoot();
+        DefaultMutableTreeNode Q1 = (DefaultMutableTreeNode) raiz.getChildAt(0);
+        DefaultMutableTreeNode Q2 = (DefaultMutableTreeNode) raiz.getChildAt(1);
+        DefaultMutableTreeNode Q4 = (DefaultMutableTreeNode) raiz.getChildAt(2);
+        DefaultMutableTreeNode Q5 = (DefaultMutableTreeNode) raiz.getChildAt(3);
+        
+        DefaultMutableTreeNode dep1 = new DefaultMutableTreeNode(deporte);
+        DefaultMutableTreeNode dep2 = new DefaultMutableTreeNode(deporte);
+        DefaultMutableTreeNode dep3 = new DefaultMutableTreeNode(deporte);
+        DefaultMutableTreeNode dep4 = new DefaultMutableTreeNode(deporte);
+        
+        Q1.add(dep1);
+        Q2.add(dep2);
+        Q4.add(dep3);
+        Q5.add(dep4);
+        modelo.reload();
+        JOptionPane.showMessageDialog(this, "Deporte agregado");
+    }//GEN-LAST:event_BtnCrearDeporteActionPerformed
+
+    private void JTtorneosValueChanged(javax.swing.event.TreeSelectionEvent evt) {//GEN-FIRST:event_JTtorneosValueChanged
+        nodoSeleccionado = (DefaultMutableTreeNode) JTtorneos.getLastSelectedPathComponent();
+    }//GEN-LAST:event_JTtorneosValueChanged
+
+    private void JTtorneosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_JTtorneosMouseClicked
+        if (evt.isMetaDown()) {
+            if (nodoSeleccionado.getUserObject() instanceof Deporte) {
+                PopUpDeportes.show(evt.getComponent(), evt.getX(), evt.getY());
+            }
+        }
+    }//GEN-LAST:event_JTtorneosMouseClicked
 
     /**
      * @param args the command line arguments
@@ -99,8 +187,20 @@ public class Main extends javax.swing.JFrame {
         });
     }
 
+    public void llenarDeportes() {
+
+    }
+    ArrayList<Deporte> deportes = new ArrayList<>();
+    DefaultMutableTreeNode nodoSeleccionado;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnCrearDeporte;
+    private javax.swing.JTextField FieldNombreDeporte;
     private javax.swing.JTree JTtorneos;
+    private javax.swing.JMenuItem OpListarEquipos;
+    private javax.swing.JMenuItem OpMostrarTabla;
+    private javax.swing.JPopupMenu PopUpDeportes;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JPopupMenu.Separator jSeparator1;
     // End of variables declaration//GEN-END:variables
 }
