@@ -4,10 +4,13 @@
  */
 package examenii_p2_josueham;
 
+import java.io.File;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
@@ -81,6 +84,7 @@ public class Main extends javax.swing.JFrame {
         FieldNombreDeporte = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         BtnGuardarDeporte = new javax.swing.JButton();
+        BtnCargarDeporte = new javax.swing.JButton();
 
         OpListarEquipos.setText("Listar Equipos Participantes");
         OpListarEquipos.addActionListener(new java.awt.event.ActionListener() {
@@ -355,6 +359,18 @@ public class Main extends javax.swing.JFrame {
         jLabel1.setText("Nombre del deporte");
 
         BtnGuardarDeporte.setText("Guardar Deporte");
+        BtnGuardarDeporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnGuardarDeporteActionPerformed(evt);
+            }
+        });
+
+        BtnCargarDeporte.setText("Cargar Deporte");
+        BtnCargarDeporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCargarDeporteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -369,7 +385,9 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(BtnCrearDeporte, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
                 .addGap(41, 41, 41)
                 .addComponent(BtnGuardarDeporte, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(136, Short.MAX_VALUE))
+                .addGap(67, 67, 67)
+                .addComponent(BtnCargarDeporte, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -383,7 +401,8 @@ public class Main extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnCrearDeporte)
-                    .addComponent(BtnGuardarDeporte))
+                    .addComponent(BtnGuardarDeporte)
+                    .addComponent(BtnCargarDeporte))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -470,29 +489,29 @@ public class Main extends javax.swing.JFrame {
         Torneo tor = (Torneo) nodoSeleccionado.getUserObject();
         lb_nomTorneoSelec.setText(tor.getNombre());
         JListEquipos.setModel(llenarEquipos(tor));
-        
+
         DiaEquiposParticipantes.pack();
         DiaEquiposParticipantes.setLocationRelativeTo(this);
         DiaEquiposParticipantes.setVisible(true);
     }//GEN-LAST:event_OpListarEquiposActionPerformed
 
     private void BtnSeleccionarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSeleccionarEquipoActionPerformed
-         if (JListEquipos.getSelectedIndex() >= 0) {
-            try{
+        if (JListEquipos.getSelectedIndex() >= 0) {
+            try {
                 DefaultListModel modelito = new DefaultListModel();
-                
-            } catch(Exception e){
+
+            } catch (Exception e) {
             }
         } else {
-             
-         }
+
+        }
     }//GEN-LAST:event_BtnSeleccionarEquipoActionPerformed
 
     private void OpCrearEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpCrearEquipoActionPerformed
         String nomEquipo = JOptionPane.showInputDialog(this, "Ingrese el nombre del equipo");
         int puntos = 0;
         Torneo tor = (Torneo) nodoSeleccionado.getUserObject();
-        
+
         Equipo eq = new Equipo(nomEquipo, puntos);
         tor.getListaEquipos().add(eq);
         JOptionPane.showMessageDialog(this, "Equipo guardado correctamente");
@@ -502,15 +521,40 @@ public class Main extends javax.swing.JFrame {
         Torneo tor = (Torneo) nodoSeleccionado.getUserObject();
         ComboEquipo1.setModel(llenarComboEquipos(tor));
         ComboEquipo2.setModel(llenarComboEquipos(tor));
-        
+
         DiaPartidos.pack();
         DiaPartidos.setLocationRelativeTo(this);
         DiaPartidos.setVisible(true);
     }//GEN-LAST:event_OpCrearPartidoActionPerformed
 
+    private void BtnGuardarDeporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarDeporteActionPerformed
+        if (nodoSeleccionado != null && nodoSeleccionado.getUserObject() instanceof Deporte) {
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivo Binario", "dep");
+            chooser.setFileFilter(filter);
+            int seleccion = chooser.showSaveDialog(this);
+            File archivo = chooser.getSelectedFile();
+            if (seleccion == JFileChooser.APPROVE_OPTION) {
+                adminDeportes aD = new adminDeportes(archivo.getPath() + ".bin");
+                aD.setDepor(((Deporte) nodoSeleccionado.getUserObject()));
+                aD.escribirArchivo();
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Seleccione un deporte");
+        }
+    }//GEN-LAST:event_BtnGuardarDeporteActionPerformed
+
+    private void BtnCargarDeporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCargarDeporteActionPerformed
+        
+    }//GEN-LAST:event_BtnCargarDeporteActionPerformed
+
     /**
      * @param args the command line arguments
      */
+    
+
+    
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -543,15 +587,15 @@ public class Main extends javax.swing.JFrame {
         });
     }
 
-    public DefaultListModel llenarEquipos (Torneo a){
+    public DefaultListModel llenarEquipos(Torneo a) {
         DefaultListModel modelito = new DefaultListModel();
         for (Equipo eq : a.getListaEquipos()) {
             modelito.addElement(eq);
         }
         return modelito;
     }
-    
-    public DefaultComboBoxModel llenarComboEquipos (Torneo a){
+
+    public DefaultComboBoxModel llenarComboEquipos(Torneo a) {
         DefaultComboBoxModel modelito = new DefaultComboBoxModel();
         for (Equipo eq : a.getListaEquipos()) {
             modelito.addElement(eq);
@@ -560,6 +604,7 @@ public class Main extends javax.swing.JFrame {
     }
     DefaultMutableTreeNode nodoSeleccionado;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnCargarDeporte;
     private javax.swing.JButton BtnCrearDeporte;
     private javax.swing.JButton BtnGuardarDeporte;
     private javax.swing.JButton BtnGuardarTorneo;

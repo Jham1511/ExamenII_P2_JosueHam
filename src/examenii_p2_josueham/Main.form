@@ -486,7 +486,9 @@
               </Group>
               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
               <Component id="BtnGuardarDeporte" min="-2" pref="133" max="-2" attributes="0"/>
-              <EmptySpace pref="136" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
+              <Component id="BtnCargarDeporte" min="-2" pref="115" max="-2" attributes="0"/>
+              <EmptySpace pref="31" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -503,6 +505,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="BtnCrearDeporte" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="BtnGuardarDeporte" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="BtnCargarDeporte" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="25" max="32767" attributes="0"/>
           </Group>
@@ -549,6 +552,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Guardar Deporte"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnGuardarDeporteActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="BtnCargarDeporte">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Cargar Deporte"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnCargarDeporteActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
