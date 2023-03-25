@@ -5,6 +5,8 @@
 package examenii_p2_josueham;
 
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -41,6 +43,10 @@ public class Main extends javax.swing.JFrame {
         OpListarEquipos = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
         OpMostrarTabla = new javax.swing.JMenuItem();
+        jSeparator2 = new javax.swing.JPopupMenu.Separator();
+        OpCrearEquipo = new javax.swing.JMenuItem();
+        jSeparator3 = new javax.swing.JPopupMenu.Separator();
+        OpCrearPartido = new javax.swing.JMenuItem();
         CrearTorneo = new javax.swing.JDialog();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
@@ -52,13 +58,29 @@ public class Main extends javax.swing.JFrame {
         PopUpDeportes = new javax.swing.JPopupMenu();
         OpAgregarTorneo = new javax.swing.JMenuItem();
         DiaEquiposParticipantes = new javax.swing.JDialog();
+        jPanel4 = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        JListEquipos = new javax.swing.JList<>();
+        jLabel4 = new javax.swing.JLabel();
+        lb_nomTorneoSelec = new javax.swing.JLabel();
+        BtnSeleccionarEquipo = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         DiaPartidos = new javax.swing.JDialog();
         jPanel3 = new javax.swing.JPanel();
+        lb_equipo1 = new javax.swing.JLabel();
+        ComboEquipo1 = new javax.swing.JComboBox<>();
+        lb_equipo2 = new javax.swing.JLabel();
+        ComboEquipo2 = new javax.swing.JComboBox<>();
+        SpinnerEquipo1 = new javax.swing.JSpinner();
+        SpinnerEquipo2 = new javax.swing.JSpinner();
+        BtnRegistrar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         JTtorneos = new javax.swing.JTree();
         BtnCrearDeporte = new javax.swing.JButton();
         FieldNombreDeporte = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
+        BtnGuardarDeporte = new javax.swing.JButton();
 
         OpListarEquipos.setText("Listar Equipos Participantes");
         OpListarEquipos.addActionListener(new java.awt.event.ActionListener() {
@@ -71,6 +93,24 @@ public class Main extends javax.swing.JFrame {
 
         OpMostrarTabla.setText("Mostrar Tabla de Posiciones");
         PopUpTorneos.add(OpMostrarTabla);
+        PopUpTorneos.add(jSeparator2);
+
+        OpCrearEquipo.setText("jMenuItem1");
+        OpCrearEquipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OpCrearEquipoActionPerformed(evt);
+            }
+        });
+        PopUpTorneos.add(OpCrearEquipo);
+        PopUpTorneos.add(jSeparator3);
+
+        OpCrearPartido.setText("jMenuItem1");
+        OpCrearPartido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                OpCrearPartidoActionPerformed(evt);
+            }
+        });
+        PopUpTorneos.add(OpCrearPartido);
 
         CrearTorneo.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -132,28 +172,138 @@ public class Main extends javax.swing.JFrame {
         });
         PopUpDeportes.add(OpAgregarTorneo);
 
+        jPanel4.setBackground(new java.awt.Color(0, 153, 153));
+
+        JListEquipos.setModel(new DefaultListModel());
+        jScrollPane2.setViewportView(JListEquipos);
+
+        jLabel4.setFont(new java.awt.Font("Cooper Black", 0, 14)); // NOI18N
+        jLabel4.setText("Torneo Seleccionado: ");
+
+        lb_nomTorneoSelec.setFont(new java.awt.Font("Cooper Black", 0, 14)); // NOI18N
+
+        BtnSeleccionarEquipo.setText("Seleccionar");
+        BtnSeleccionarEquipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSeleccionarEquipoActionPerformed(evt);
+            }
+        });
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(jTable1);
+
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(49, 49, 49)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(BtnSeleccionarEquipo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(lb_nomTorneoSelec)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 70, Short.MAX_VALUE)
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 343, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(41, 41, 41))))
+        );
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(lb_nomTorneoSelec))
+                .addGap(46, 46, 46)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BtnSeleccionarEquipo)
+                .addContainerGap(60, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout DiaEquiposParticipantesLayout = new javax.swing.GroupLayout(DiaEquiposParticipantes.getContentPane());
         DiaEquiposParticipantes.getContentPane().setLayout(DiaEquiposParticipantesLayout);
         DiaEquiposParticipantesLayout.setHorizontalGroup(
             DiaEquiposParticipantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         DiaEquiposParticipantesLayout.setVerticalGroup(
             DiaEquiposParticipantesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jPanel3.setBackground(new java.awt.Color(102, 102, 255));
+
+        lb_equipo1.setFont(new java.awt.Font("Cooper Black", 0, 14)); // NOI18N
+        lb_equipo1.setText("Equipo 1");
+
+        ComboEquipo1.setModel(new DefaultComboBoxModel());
+
+        lb_equipo2.setFont(new java.awt.Font("Cooper Black", 0, 14)); // NOI18N
+        lb_equipo2.setText("Equipo 2");
+
+        ComboEquipo2.setModel(new DefaultComboBoxModel());
+
+        SpinnerEquipo1.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+
+        BtnRegistrar.setText("Registrar");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 472, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(SpinnerEquipo1)
+                    .addComponent(lb_equipo1)
+                    .addComponent(ComboEquipo1, 0, 92, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lb_equipo2)
+                    .addComponent(ComboEquipo2, 0, 102, Short.MAX_VALUE)
+                    .addComponent(SpinnerEquipo2))
+                .addGap(80, 80, 80))
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(197, 197, 197)
+                .addComponent(BtnRegistrar)
+                .addContainerGap(209, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 387, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(54, 54, 54)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lb_equipo1)
+                    .addComponent(lb_equipo2))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ComboEquipo1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ComboEquipo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(SpinnerEquipo1, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                    .addComponent(SpinnerEquipo2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 135, Short.MAX_VALUE)
+                .addComponent(BtnRegistrar)
+                .addGap(69, 69, 69))
         );
 
         javax.swing.GroupLayout DiaPartidosLayout = new javax.swing.GroupLayout(DiaPartidos.getContentPane());
@@ -204,6 +354,8 @@ public class Main extends javax.swing.JFrame {
 
         jLabel1.setText("Nombre del deporte");
 
+        BtnGuardarDeporte.setText("Guardar Deporte");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -215,7 +367,9 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addComponent(FieldNombreDeporte)
                     .addComponent(BtnCrearDeporte, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
-                .addContainerGap(310, Short.MAX_VALUE))
+                .addGap(41, 41, 41)
+                .addComponent(BtnGuardarDeporte, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(136, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -227,7 +381,9 @@ public class Main extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(FieldNombreDeporte, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BtnCrearDeporte)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BtnCrearDeporte)
+                    .addComponent(BtnGuardarDeporte))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
 
@@ -311,8 +467,46 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_OpAgregarTorneoActionPerformed
 
     private void OpListarEquiposActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpListarEquiposActionPerformed
+        Torneo tor = (Torneo) nodoSeleccionado.getUserObject();
+        lb_nomTorneoSelec.setText(tor.getNombre());
+        JListEquipos.setModel(llenarEquipos(tor));
         
+        DiaEquiposParticipantes.pack();
+        DiaEquiposParticipantes.setLocationRelativeTo(this);
+        DiaEquiposParticipantes.setVisible(true);
     }//GEN-LAST:event_OpListarEquiposActionPerformed
+
+    private void BtnSeleccionarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSeleccionarEquipoActionPerformed
+         if (JListEquipos.getSelectedIndex() >= 0) {
+            try{
+                DefaultListModel modelito = new DefaultListModel();
+                
+            } catch(Exception e){
+            }
+        } else {
+             
+         }
+    }//GEN-LAST:event_BtnSeleccionarEquipoActionPerformed
+
+    private void OpCrearEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpCrearEquipoActionPerformed
+        String nomEquipo = JOptionPane.showInputDialog(this, "Ingrese el nombre del equipo");
+        int puntos = 0;
+        Torneo tor = (Torneo) nodoSeleccionado.getUserObject();
+        
+        Equipo eq = new Equipo(nomEquipo, puntos);
+        tor.getListaEquipos().add(eq);
+        JOptionPane.showMessageDialog(this, "Equipo guardado correctamente");
+    }//GEN-LAST:event_OpCrearEquipoActionPerformed
+
+    private void OpCrearPartidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OpCrearPartidoActionPerformed
+        Torneo tor = (Torneo) nodoSeleccionado.getUserObject();
+        ComboEquipo1.setModel(llenarComboEquipos(tor));
+        ComboEquipo2.setModel(llenarComboEquipos(tor));
+        
+        DiaPartidos.pack();
+        DiaPartidos.setLocationRelativeTo(this);
+        DiaPartidos.setVisible(true);
+    }//GEN-LAST:event_OpCrearPartidoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -349,30 +543,64 @@ public class Main extends javax.swing.JFrame {
         });
     }
 
+    public DefaultListModel llenarEquipos (Torneo a){
+        DefaultListModel modelito = new DefaultListModel();
+        for (Equipo eq : a.getListaEquipos()) {
+            modelito.addElement(eq);
+        }
+        return modelito;
+    }
     
+    public DefaultComboBoxModel llenarComboEquipos (Torneo a){
+        DefaultComboBoxModel modelito = new DefaultComboBoxModel();
+        for (Equipo eq : a.getListaEquipos()) {
+            modelito.addElement(eq);
+        }
+        return modelito;
+    }
     DefaultMutableTreeNode nodoSeleccionado;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCrearDeporte;
+    private javax.swing.JButton BtnGuardarDeporte;
     private javax.swing.JButton BtnGuardarTorneo;
+    private javax.swing.JButton BtnRegistrar;
+    private javax.swing.JButton BtnSeleccionarEquipo;
+    private javax.swing.JComboBox<String> ComboEquipo1;
+    private javax.swing.JComboBox<String> ComboEquipo2;
     private javax.swing.JComboBox<String> ComboPeriodo;
     private javax.swing.JDialog CrearTorneo;
     private javax.swing.JDialog DiaEquiposParticipantes;
     private javax.swing.JDialog DiaPartidos;
     private javax.swing.JTextField FieldNomTorneo;
     private javax.swing.JTextField FieldNombreDeporte;
+    private javax.swing.JList<String> JListEquipos;
     private javax.swing.JTree JTtorneos;
     private javax.swing.JMenuItem OpAgregarTorneo;
+    private javax.swing.JMenuItem OpCrearEquipo;
+    private javax.swing.JMenuItem OpCrearPartido;
     private javax.swing.JMenuItem OpListarEquipos;
     private javax.swing.JMenuItem OpMostrarTabla;
     private javax.swing.JPopupMenu PopUpDeportes;
     private javax.swing.JPopupMenu PopUpTorneos;
+    private javax.swing.JSpinner SpinnerEquipo1;
+    private javax.swing.JSpinner SpinnerEquipo2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JPopupMenu.Separator jSeparator2;
+    private javax.swing.JPopupMenu.Separator jSeparator3;
+    private javax.swing.JTable jTable1;
+    private javax.swing.JLabel lb_equipo1;
+    private javax.swing.JLabel lb_equipo2;
+    private javax.swing.JLabel lb_nomTorneoSelec;
     // End of variables declaration//GEN-END:variables
 }
