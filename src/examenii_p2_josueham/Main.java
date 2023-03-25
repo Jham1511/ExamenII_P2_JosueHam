@@ -85,6 +85,7 @@ public class Main extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         BtnGuardarDeporte = new javax.swing.JButton();
         BtnCargarDeporte = new javax.swing.JButton();
+        BarraGuardar = new javax.swing.JProgressBar();
 
         OpListarEquipos.setText("Listar Equipos Participantes");
         OpListarEquipos.addActionListener(new java.awt.event.ActionListener() {
@@ -384,16 +385,24 @@ public class Main extends javax.swing.JFrame {
                     .addComponent(FieldNombreDeporte)
                     .addComponent(BtnCrearDeporte, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE))
                 .addGap(41, 41, 41)
-                .addComponent(BtnGuardarDeporte, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(67, 67, 67)
-                .addComponent(BtnCargarDeporte, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(BtnGuardarDeporte, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(67, 67, 67)
+                        .addComponent(BtnCargarDeporte, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(BarraGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 371, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 290, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(115, 115, 115)
+                        .addComponent(BarraGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -538,6 +547,10 @@ public class Main extends javax.swing.JFrame {
                 adminDeportes aD = new adminDeportes(archivo.getPath() + ".dep");
                 aD.setDepor(((Deporte) nodoSeleccionado.getUserObject()));
                 aD.escribirArchivo();
+                Deporte depor = (Deporte) nodoSeleccionado.getUserObject();
+                adminHilo aH = new adminHilo(depor, BarraGuardar);
+                Thread proceso = new Thread(aH);
+                proceso.start();
             }
         } else {
             JOptionPane.showMessageDialog(this, "Seleccione un deporte");
@@ -632,6 +645,7 @@ public class Main extends javax.swing.JFrame {
     }
     DefaultMutableTreeNode nodoSeleccionado;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JProgressBar BarraGuardar;
     private javax.swing.JButton BtnCargarDeporte;
     private javax.swing.JButton BtnCrearDeporte;
     private javax.swing.JButton BtnGuardarDeporte;
