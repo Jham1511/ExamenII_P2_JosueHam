@@ -11,6 +11,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.MutableTreeNode;
@@ -68,7 +69,7 @@ public class Main extends javax.swing.JFrame {
         lb_nomTorneoSelec = new javax.swing.JLabel();
         BtnSeleccionarEquipo = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TablaPartidos = new javax.swing.JTable();
         DiaPartidos = new javax.swing.JDialog();
         jPanel3 = new javax.swing.JPanel();
         lb_equipo1 = new javax.swing.JLabel();
@@ -81,7 +82,7 @@ public class Main extends javax.swing.JFrame {
         DiaPosiciones = new javax.swing.JDialog();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane4 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        TablaPosiciones = new javax.swing.JTable();
         jLabel5 = new javax.swing.JLabel();
         lb_nomTabla = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -205,18 +206,18 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TablaPartidos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null},
+                {null},
+                {null},
+                {null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Partido"
             }
         ));
-        jScrollPane3.setViewportView(jTable1);
+        jScrollPane3.setViewportView(TablaPartidos);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -344,18 +345,18 @@ public class Main extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(102, 102, 255));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        TablaPosiciones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null},
+                {null, null},
+                {null, null},
+                {null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Equipo", "Puntos"
             }
         ));
-        jScrollPane4.setViewportView(jTable2);
+        jScrollPane4.setViewportView(TablaPosiciones);
 
         jLabel5.setFont(new java.awt.Font("Cooper Black", 0, 14)); // NOI18N
         jLabel5.setText("Torneo Seleccionado: ");
@@ -581,8 +582,18 @@ public class Main extends javax.swing.JFrame {
     private void BtnSeleccionarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSeleccionarEquipoActionPerformed
         if (JListEquipos.getSelectedIndex() >= 0) {
             try {
+                Torneo tor  = (Torneo) nodoSeleccionado.getUserObject();
                 DefaultListModel modelito = new DefaultListModel();
+                DefaultTableModel mod = (DefaultTableModel) TablaPartidos.getModel();
                 Equipo eq = (Equipo) modelito.getElementAt(JListEquipos.getSelectedIndex());
+                for (int i = 0; i < tor.getListaEquipos().size(); i++) {
+                    if (tor.getListaEquipos().get(i).getNombre().equals(eq.getNombre())) {
+                        String[] partidos = new String[tor.getListaEquipos().size()];
+                        partidos[i] = tor.getListaEquipos().get(i).toString();
+                        mod.addRow(partidos);
+                    }
+                }
+                TablaPartidos.setModel(mod);
             } catch (Exception e) {
             }
         } else {
@@ -704,7 +715,10 @@ public class Main extends javax.swing.JFrame {
         if (nodoSeleccionado != null) {
             Torneo tor = (Torneo) nodoSeleccionado.getUserObject();
             lb_nomTabla.setText(tor.getNombre());
-            
+            ordenar(tor);
+            DefaultTableModel mod  = new DefaultTableModel();
+            mod.addColumn("Partido");
+            TablaPartidos.setModel(mod);
             DiaPosiciones.pack();
             DiaPosiciones.setLocationRelativeTo(this);
             DiaPosiciones.setVisible(true);
@@ -764,10 +778,18 @@ public class Main extends javax.swing.JFrame {
         }
         return modelito;
     }
-
-    public void ordenar() {
-        for (int i = 0; i < 10; i++) {
-
+    
+    public void ordenar(Torneo a) {
+        int aux = 0;
+        for (int i = 1; i < a.getListaEquipos().size(); i++) {
+            for (int j = 0; j < a.getListaEquipos().size() -2; j++) {
+                if (a.getListaEquipos().get(j).getPuntos() > a.getListaEquipos().get(j + 1).getPuntos()) {
+                    aux = a.getListaEquipos().get(j).getPuntos();
+                    a.getListaEquipos().get(j).setPuntos(a.getListaEquipos().get(j + 1).getPuntos());
+                    a.getListaEquipos().get(j + 1).setPuntos(aux);
+                    
+                }
+            }
         }
     }
     DefaultMutableTreeNode nodoSeleccionado;
@@ -799,6 +821,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPopupMenu PopUpTorneos;
     private javax.swing.JSpinner SpinnerEquipo1;
     private javax.swing.JSpinner SpinnerEquipo2;
+    private javax.swing.JTable TablaPartidos;
+    private javax.swing.JTable TablaPosiciones;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -816,8 +840,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator2;
     private javax.swing.JPopupMenu.Separator jSeparator3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
     private javax.swing.JLabel lb_equipo1;
     private javax.swing.JLabel lb_equipo2;
     private javax.swing.JLabel lb_nomTabla;
