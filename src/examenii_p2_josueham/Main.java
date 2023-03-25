@@ -530,12 +530,12 @@ public class Main extends javax.swing.JFrame {
     private void BtnGuardarDeporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarDeporteActionPerformed
         if (nodoSeleccionado != null && nodoSeleccionado.getUserObject() instanceof Deporte) {
             JFileChooser chooser = new JFileChooser();
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivo Binario", "dep");
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos Deportes", "dep");
             chooser.setFileFilter(filter);
             int seleccion = chooser.showSaveDialog(this);
             File archivo = chooser.getSelectedFile();
             if (seleccion == JFileChooser.APPROVE_OPTION) {
-                adminDeportes aD = new adminDeportes(archivo.getPath() + ".bin");
+                adminDeportes aD = new adminDeportes(archivo.getPath() + ".dep");
                 aD.setDepor(((Deporte) nodoSeleccionado.getUserObject()));
                 aD.escribirArchivo();
             }
@@ -545,16 +545,44 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnGuardarDeporteActionPerformed
 
     private void BtnCargarDeporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCargarDeporteActionPerformed
-        
+        if (nodoSeleccionado != null) {
+            JFileChooser chooser = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Archivos Deportes", "dep");
+            chooser.setFileFilter(filter);
+            int seleccion = chooser.showOpenDialog(this);
+            File archivo = chooser.getSelectedFile();
+            if (seleccion == JFileChooser.APPROVE_OPTION) {
+                adminDeportes aD = new adminDeportes(archivo.getPath() + ".dep");
+                DefaultTreeModel mod = (DefaultTreeModel) JTtorneos.getModel();
+                DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) mod.getRoot();
+                DefaultMutableTreeNode Q1 = (DefaultMutableTreeNode) raiz.getChildAt(0);
+                DefaultMutableTreeNode Q2 = (DefaultMutableTreeNode) raiz.getChildAt(1);
+                DefaultMutableTreeNode Q4 = (DefaultMutableTreeNode) raiz.getChildAt(2);
+                DefaultMutableTreeNode Q5 = (DefaultMutableTreeNode) raiz.getChildAt(3);
+                aD.cargarArchivo();
+
+                Deporte depor = aD.getDepor();
+                DefaultMutableTreeNode nodo = new DefaultMutableTreeNode(depor);
+                for (int i = 0; i < depor.getListaTorneos().size(); i++) {
+                    if (depor.getListaTorneos().get(i).getPeriodo().equals("Q1")) {
+                        Q1.add(nodo);
+                    } else if (depor.getListaTorneos().get(i).getPeriodo().equals("Q2")){
+                        Q2.add(nodo);
+                    } else if (depor.getListaTorneos().get(i).getPeriodo().equals("Q4")){
+                        Q4.add(nodo);
+                    } else if (depor.getListaTorneos().get(i).getPeriodo().equals("Q5")){
+                        Q5.add(nodo);
+                    }
+                }
+
+            }
+            JOptionPane.showMessageDialog(this, "Deporte cargado");
+        }
     }//GEN-LAST:event_BtnCargarDeporteActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
-
-    
-
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
