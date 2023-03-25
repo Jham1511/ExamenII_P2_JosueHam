@@ -27,7 +27,7 @@
         </Component>
         <MenuItem class="javax.swing.JMenuItem" name="OpCrearEquipo">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jMenuItem1"/>
+            <Property name="text" type="java.lang.String" value="Crear Equipo"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="OpCrearEquipoActionPerformed"/>
@@ -37,7 +37,7 @@
         </Component>
         <MenuItem class="javax.swing.JMenuItem" name="OpCrearPartido">
           <Properties>
-            <Property name="text" type="java.lang.String" value="jMenuItem1"/>
+            <Property name="text" type="java.lang.String" value="Crear Partido"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="OpCrearPartidoActionPerformed"/>
@@ -448,6 +448,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Registrar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnRegistrarActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

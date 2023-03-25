@@ -100,7 +100,7 @@ public class Main extends javax.swing.JFrame {
         PopUpTorneos.add(OpMostrarTabla);
         PopUpTorneos.add(jSeparator2);
 
-        OpCrearEquipo.setText("jMenuItem1");
+        OpCrearEquipo.setText("Crear Equipo");
         OpCrearEquipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 OpCrearEquipoActionPerformed(evt);
@@ -109,7 +109,7 @@ public class Main extends javax.swing.JFrame {
         PopUpTorneos.add(OpCrearEquipo);
         PopUpTorneos.add(jSeparator3);
 
-        OpCrearPartido.setText("jMenuItem1");
+        OpCrearPartido.setText("Crear Partido");
         OpCrearPartido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 OpCrearPartidoActionPerformed(evt);
@@ -269,6 +269,11 @@ public class Main extends javax.swing.JFrame {
         SpinnerEquipo1.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
 
         BtnRegistrar.setText("Registrar");
+        BtnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnRegistrarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -579,11 +584,11 @@ public class Main extends javax.swing.JFrame {
                 for (int i = 0; i < depor.getListaTorneos().size(); i++) {
                     if (depor.getListaTorneos().get(i).getPeriodo().equals("Q1")) {
                         Q1.add(nodo);
-                    } else if (depor.getListaTorneos().get(i).getPeriodo().equals("Q2")){
+                    } else if (depor.getListaTorneos().get(i).getPeriodo().equals("Q2")) {
                         Q2.add(nodo);
-                    } else if (depor.getListaTorneos().get(i).getPeriodo().equals("Q4")){
+                    } else if (depor.getListaTorneos().get(i).getPeriodo().equals("Q4")) {
                         Q4.add(nodo);
-                    } else if (depor.getListaTorneos().get(i).getPeriodo().equals("Q5")){
+                    } else if (depor.getListaTorneos().get(i).getPeriodo().equals("Q5")) {
                         Q5.add(nodo);
                     }
                 }
@@ -592,6 +597,29 @@ public class Main extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Deporte cargado");
         }
     }//GEN-LAST:event_BtnCargarDeporteActionPerformed
+
+    private void BtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrarActionPerformed
+        if (nodoSeleccionado != null) {
+            try {
+                String strPuntaje1 = SpinnerEquipo1.getValue().toString();
+                int puntaje1 = Integer.parseInt(strPuntaje1);
+                String strPuntaje2 = SpinnerEquipo2.getValue().toString();
+                int puntaje2 = Integer.parseInt(strPuntaje2);
+                
+                Equipo eq1  = (Equipo) ComboEquipo1.getSelectedItem();
+                Equipo eq2 = (Equipo) ComboEquipo2.getSelectedItem();
+                eq1.setPuntos(puntaje1);
+                eq2.setPuntos(puntaje2);
+                Partido match = new Partido(ComboEquipo1.getSelectedItem().toString(), ComboEquipo2.getSelectedItem().toString(), puntaje1, puntaje2);
+                
+                Torneo tor = (Torneo) nodoSeleccionado.getUserObject();
+                tor.getListaPartidos().add(match);
+                
+                JOptionPane.showMessageDialog(this, "Partido agregado correctamente");
+            } catch (Exception e) {
+            }
+        }
+    }//GEN-LAST:event_BtnRegistrarActionPerformed
 
     /**
      * @param args the command line arguments
